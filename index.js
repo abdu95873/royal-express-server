@@ -63,6 +63,24 @@ async function run() {
 
     });
 
+    app.put('/update-user-role', async (req, res) => {
+      const body = req.body;
+      const options = { upsert: true };
+      const id = body.id;
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          role: body.role,
+
+
+        }
+      }
+      console.log(updateDoc);
+      const result = await usersCollection.updateOne(filter, updateDoc, options);
+      res.send(result);
+
+    });
+
 
 
     //..........................................................area collection ......................................................
